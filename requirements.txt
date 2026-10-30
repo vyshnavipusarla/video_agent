@@ -1,0 +1,35 @@
+# ── AI Meeting Assistant ── requirements.txt ──────────────────────────────────
+# Python >= 3.10 recommended
+# System dependency: FFmpeg must be installed and on PATH (needed by Whisper + yt-dlp)
+
+# ── Audio acquisition ─────────────────────────────────────────────────────────
+yt-dlp>=2024.4.9                  # Download audio from YouTube URLs
+pydub>=0.25.1                     # Convert/chunk audio (imported in audio code)
+audioop-lts>=0.2.1; python_version >= "3.13"  # pydub needs this on Python 3.13+
+
+# ── Speech-to-Text + Hindi → English (local Whisper, task="translate") ───────
+openai-whisper>=20231117          # Runs locally; handles translation too
+torch>=2.2.0                      # PyTorch backend for Whisper
+
+# ── LLM Orchestration — LangChain LCEL + Groq ─────────────────────────────────
+langchain>=0.2.0
+langchain-core>=0.2.0
+langchain-community>=0.2.0
+langchain-text-splitters>=0.2.0   # Chunking transcripts for RAG
+langchain-groq>=0.1.5             # ChatGroq (free API tier)
+
+# ── RAG Pipeline ──────────────────────────────────────────────────────────────
+chromadb>=0.5.0                   # Local vector store
+langchain-chroma>=0.1.2           # LangChain ↔ Chroma integration
+sentence-transformers>=3.0.0      # HuggingFace embedding models
+langchain-huggingface>=0.0.3      # LangChain ↔ HuggingFace embeddings bridge
+
+# ── Streamlit UI ──────────────────────────────────────────────────────────────
+streamlit>=1.35.0
+
+# ── PDF & TXT Export ──────────────────────────────────────────────────────────
+fpdf2>=2.7.9                      # PDF generation (TXT needs no library)
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv>=1.0.0              # Load GROQ_API_KEY from .env
+requests>=2.32.0                  # Sarvam API calls
